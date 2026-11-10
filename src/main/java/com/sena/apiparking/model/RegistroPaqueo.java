@@ -2,8 +2,6 @@ package com.sena.apiparking.model;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.ManyToAny;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,10 +27,16 @@ public class RegistroPaqueo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id_egistro;
+	private Long id_registro;
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "vehiculo_id", nullable = false)
+	private Vehiculo vehiculo;
+
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "espacio_id", nullable = false)
 	private EspacioParqueo espacio;
+
 	@Column(nullable = false)
 	private LocalDateTime fechaEntrada;
 	private LocalDateTime salidaEntrada;
