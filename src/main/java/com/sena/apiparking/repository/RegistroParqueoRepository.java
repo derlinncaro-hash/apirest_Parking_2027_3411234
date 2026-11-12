@@ -9,31 +9,35 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.sena.apiparking.model.EspacioParqueo;
-import com.sena.apiparking.model.RegistroPaqueo;
+import com.sena.apiparking.model.RegistroParqueo;
 
 import jakarta.persistence.LockModeType;
 
-public interface RegistroParqueoRepository extends JpaRepository<RegistroPaqueo, Long> {
-	@Query("select count(r) > 0 from RegistroParqueo r join r.vehiculo V where v.placa =:placa and r.fechaSalida is null")
+public interface RegistroParqueoRepository extends JpaRepository<RegistroParqueo, Long> {
+
+	@Query("select count(r) > 0 from RegistroParqueo r join r.vehiculo v where v.placa = :placa "
+			+ "and r.fechaSalida is null")
 	boolean existsByVehiculoPlacaAndFechaSalidaIsNull(@Param("placa") String placa);
 
-	@Query("select count(r) > 0 from RegistroParqueo r where r.espacio =: espacio")
+	@Query("select count(r) > 0 from RegistroParqueo r where r.espacio = :espacio")
 	boolean existsByEspacio(@Param("espacio") EspacioParqueo espacio);
 
-	Optional<RegistroPaqueo> findVehiculoPlacaAndFechaSalidaIsNull(String placa);
+	Optional<RegistroParqueo> findByVehiculoPlacaAndFechaSalidaIsNull(String placa);
 
-	List<RegistroPaqueo> findByFechaSalidaIsNotNullOrderByFechaEntradaDesc();
+	List<RegistroParqueo> findAllByOrderByFechaEntradaDesc();
 
-	List<RegistroPaqueo> findByFechaSalidaIsNullOrderByFechaEntradaDesc();
+	List<RegistroParqueo> findByFechaSalidaIsNullOrderByFechaEntradaDesc();
 
-	List<RegistroPaqueo> findByVehiculoPlacaOrderByFechaEntradaDesc(String placa);
+	List<RegistroParqueo> findByFechaSalidaIsNotNullOrderByFechaEntradaDesc();
+
+	List<RegistroParqueo> findByVehiculoPlacaOrderByFechaEntradaDesc(String placa);
 
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	@Query("select r from RegistroParqueo r where r.id_registro = :id")
-	Optional<RegistroPaqueo> bloquearPorId(@Param("id") Long id);
+	Optional<RegistroParqueo> bloquearPorId(@Param("id") Long id);
 
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	@Query("select r from RegistroParqueo r join r.vehiculo where v.placa = :placa " + "and r.fechaSalida is null")
-	Optional<RegistroPaqueo> bloquearActivoPorPlaca(@Param("placa") String placa);
+	Optional<RegistroParqueo> bloquearActivoPorPlaca(@Param("placa") String placa);
 
 }

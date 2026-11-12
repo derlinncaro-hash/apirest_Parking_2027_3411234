@@ -40,5 +40,9 @@ public class Tarifa {
 	private LocalDateTime vigenteDesde;
 	@Column(nullable = false)
 	private LocalDateTime vigenteHasta;
+	public long getValorHora() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

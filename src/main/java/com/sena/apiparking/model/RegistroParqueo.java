@@ -23,7 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RegistroPaqueo {
+public class RegistroParqueo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +39,7 @@ public class RegistroPaqueo {
 
 	@Column(nullable = false)
 	private LocalDateTime fechaEntrada;
-	private LocalDateTime salidaEntrada;
+	private LocalDateTime fechaSalida;
 	private Double valorPagado;
 
 }

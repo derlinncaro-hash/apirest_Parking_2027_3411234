@@ -37,6 +37,6 @@ public class Vehiculo {
 	@Lob
 	private String descripcion;
 	@OneToMany(mappedBy = "vehiculo")
-	private List<RegistroPaqueo> registros;
+	private List<RegistroParqueo> registros;
 
 }
